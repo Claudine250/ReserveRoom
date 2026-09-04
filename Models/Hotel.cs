@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ReserveRoom.Models
+{
+    public class Hotel
+    {
+        private readonly ReservationBook _reservationBook;
+        public String Name{ get; } //get name from the constructor
+        public Hotel(string name)
+        {
+            Name = name;
+            _reservationBook = new ReservationBook();
+        }
+        /// <summary>
+        /// get the reservation for user
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>the reservation for the user</returns>
+        public IEnumerable<Reservation> GetReservationsForUser(string username)
+        {
+            return _reservationBook.GetReservationsForUser(username);
+        }
+
+        /// <summary>
+        /// make reservations
+        /// </summary>
+        /// <param name="reservation"></param>
+        /// <exception cref="ReservartionConflictException"
+
+        public void MakeReservation(Reservation reservation) {
+            _reservationBook.AddReservation(reservation);
+        }
+    }
+}
+
