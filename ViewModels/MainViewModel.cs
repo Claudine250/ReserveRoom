@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace ReserveRoom.ViewModels
 {
-    class MainViewModel : ViewModelBase
+   public class MainViewModel : ViewModelBase
     {
+        public ViewModelBase CurrentViewModel { get; }
+
+        public MainViewModel()
+        {
+            CurrentViewModel = new ReservationListingViewModel();
+        }
     }
 }
