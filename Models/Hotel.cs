@@ -16,13 +16,12 @@ namespace ReserveRoom.Models
             _reservationBook = new ReservationBook();
         }
         /// <summary>
-        /// get the reservation for user
+        /// get allreservations
         /// </summary>
-        /// <param name="username"></param>
-        /// <returns>the reservation for the user</returns>
-        public IEnumerable<Reservation> GetReservationsForUser(string username)
+        /// <returns>All reservations </returns>
+        public IEnumerable<Reservation> GetAllReservations()
         {
-            return _reservationBook.GetReservationsForUser(username);
+            return _reservationBook.GetAllReservations();
         }
 
         /// <summary>
