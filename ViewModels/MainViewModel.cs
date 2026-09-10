@@ -4,16 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReserveRoom.Models;
+using ReserveRoom.Stores;
 
 namespace ReserveRoom.ViewModels
 {
    public class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get; }
+        //make navigation store a field in our viewmodel
+        private readonly NavigationStore _navigationStore;
+        //get current viewmodel from our navigation store
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MainViewModel(Hotel hotel)
+        public MainViewModel(NavigationStore navigationStore)
         {
-            CurrentViewModel = new ReservationListingViewModel();
+            _navigationStore = navigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+
         }
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
+
+
     }
 }

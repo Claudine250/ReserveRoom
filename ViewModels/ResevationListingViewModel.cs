@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using ReserveRoom.Commands;
+using ReserveRoom.Stores;
 
 namespace ReserveRoom.ViewModels
 {
@@ -16,11 +17,11 @@ namespace ReserveRoom.ViewModels
         private readonly ObservableCollection<ReservationViewModel> _reservations;
         public IEnumerable<ReservationViewModel> Reservations => _reservations;
         public ICommand MakeReservationCommand { get; }
-        public ReservationListingViewModel()
+        public ReservationListingViewModel(NavigationStore navigationStore)
         {
             _reservations = new ObservableCollection<ReservationViewModel>();
 
-            MakeReservationCommand = new NavigateCommand();
+            MakeReservationCommand = new NavigateCommand(navigationStore);
 
             _reservations.Add(new ReservationViewModel(new Models.Reservation(new Models.RoomID(1, 2), "cocoN", DateTime.Now, DateTime.Now.AddDays(4))));
             _reservations.Add(new ReservationViewModel(new Models.Reservation(new Models.RoomID(4, 2), "NanaU", DateTime.Now, DateTime.Now.AddDays(4))));

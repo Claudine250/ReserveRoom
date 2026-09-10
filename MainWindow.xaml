@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReserveRoom"
         xmlns:views="clr-namespace:ReserveRoom.Views"
+        xmlns:vms="clr-namespace:ReserveRoom.ViewModels"
         Title="ReserveRoom" 
         Height="450" 
         Width="800"
@@ -13,7 +14,17 @@
 
 
     <Grid Margin="20 10" MaxWidth="600">
-        <views:ReservationListingView DataContext="{Binding CurrentViewModel}"/>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:MakeReservationViewModel}">
+                <views:MakeReservationView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vms:ReservationListingViewModel}">
+                <views:ReservationListingView/>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
 
 </Window>
