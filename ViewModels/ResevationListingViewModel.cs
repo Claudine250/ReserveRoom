@@ -13,15 +13,17 @@ namespace ReserveRoom.ViewModels
 {
     public class ReservationListingViewModel : ViewModelBase
     {
-
+        //kept private to be editable here only
         private readonly ObservableCollection<ReservationViewModel> _reservations;
+        //notify UI when reservations are added or removed
         public IEnumerable<ReservationViewModel> Reservations => _reservations;
+        
         public ICommand MakeReservationCommand { get; }
-        public ReservationListingViewModel(NavigationStore navigationStore)
+        public ReservationListingViewModel(NavigationStore navigationStore, Func<MakeReservationViewModel> createMakeReservationViewModel)
         {
             _reservations = new ObservableCollection<ReservationViewModel>();
 
-            MakeReservationCommand = new NavigateCommand(navigationStore);
+            MakeReservationCommand = new NavigateCommand(navigationStore, createMakeReservationViewModel);
 
             _reservations.Add(new ReservationViewModel(new Models.Reservation(new Models.RoomID(1, 2), "cocoN", DateTime.Now, DateTime.Now.AddDays(4))));
             _reservations.Add(new ReservationViewModel(new Models.Reservation(new Models.RoomID(4, 2), "NanaU", DateTime.Now, DateTime.Now.AddDays(4))));
