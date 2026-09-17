@@ -4,6 +4,7 @@ using System.Diagnostics.Tracing;
 using System.Windows;
 using ReserveRoom.Exceptions;
 using ReserveRoom.Models;
+using ReserveRoom.Services;
 using ReserveRoom.Stores;
 using ReserveRoom.ViewModels;
 
@@ -47,11 +48,11 @@ namespace ReserveRoom
         {
 
             //pass hotel, nav store, and a way to get to viewmodel
-            return new MakeReservationViewModel(_hotel, _navigationStore, CreateReservationViewModel);
+            return new MakeReservationViewModel(_hotel, new NavigationService(_navigationStore, CreateReservationViewModel));
         }
 
         private ReservationListingViewModel CreateReservationViewModel() { 
-            return new ReservationListingViewModel(_navigationStore, CreateMakeReservationViewModel);
+            return new ReservationListingViewModel(_hotel, new NavigationService(_navigationStore, CreateMakeReservationViewModel));
         }
     }
 

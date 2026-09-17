@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ReserveRoom.Services;
 using ReserveRoom.Exceptions;
 using ReserveRoom.Models;
 using ReserveRoom.ViewModels;
@@ -15,11 +16,16 @@ namespace ReserveRoom.Commands
     {
         private readonly MakeReservationViewModel _makeReservationViewModel;
         private readonly Hotel _hotel;
+        private readonly NavigationService _reservationViewNavigationService;
 
-        public MakeReservationCommand(MakeReservationViewModel makeReservationViewModel, Hotel hotel)
+
+        public MakeReservationCommand(MakeReservationViewModel makeReservationViewModel, 
+            Hotel hotel,
+            NavigationService ReservationViewNavigationService)
         {
            _makeReservationViewModel = makeReservationViewModel;
             _hotel = hotel;
+            _reservationViewNavigationService = ReservationViewNavigationService;
             //subscribe to event to know changes have been made
             _makeReservationViewModel.PropertyChanged += onViewModelPropertyChanged;
         }
@@ -49,10 +55,14 @@ namespace ReserveRoom.Commands
 
                 MessageBox.Show("Sucessfully Reserved.", "Success",
                     MessageBoxButton.OK, MessageBoxImage.Information);
+
+                _reservationViewNavigationService.Navigate();
             }
             catch (ReservationConflictException) { 
                 MessageBox.Show("This room is already taken.", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
+
+
             }
             
         }

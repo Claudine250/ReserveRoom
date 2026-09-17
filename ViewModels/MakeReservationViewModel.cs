@@ -7,6 +7,7 @@ using System.Windows.Input;
 using ReserveRoom.Commands;
 using ReserveRoom.Models;
 using ReserveRoom.Stores;
+using ReserveRoom.Services;
 
 namespace ReserveRoom.ViewModels
 {
@@ -86,12 +87,12 @@ namespace ReserveRoom.ViewModels
         public ICommand CancelCommand { get; }
 
         //
-        public MakeReservationViewModel(Hotel hotel, NavigationStore navigationStore, Func<ReservationListingViewModel> createReservationListingViewModel)
+        public MakeReservationViewModel(Hotel hotel, NavigationService reservationViewNavigationService)
         {
             //get information entered on makereservation and save into the hotel reservation
-            SubmitCommand = new MakeReservationCommand(this, hotel);
+            SubmitCommand = new MakeReservationCommand(this, hotel, reservationViewNavigationService);
             //navigate back to the ReservationListingViewModel when cancel is clicked
-            CancelCommand = new NavigateCommand(navigationStore, createReservationListingViewModel);
+            CancelCommand = new NavigateCommand(reservationViewNavigationService);
         }
     }
 

@@ -6,25 +6,23 @@ using System.Threading.Tasks;
 using ReserveRoom.Stores;
 using ReserveRoom.ViewModels;
 using ReserveRoom.Models;
+using ReserveRoom.Services;
 
 namespace ReserveRoom.Commands
 {
     public class NavigateCommand : CommandBase
     {
         //store shared navigation tracker
-        private readonly NavigationStore _navigationStore;
-        //saved ref to the method that build screen whatever screen this command should navigate to
-        private readonly Func<ViewModelBase> _createViewModel;
+        private readonly NavigationService _navigationService;
 
-        public NavigateCommand(NavigationStore navigationStore, Func<ViewModelBase> createViewModel)
+        public NavigateCommand(NavigationService navigationService)
         {
-            _navigationStore = navigationStore;
-            _createViewModel = createViewModel;
+            _navigationService = navigationService;
         }
         //build new viewmodel or screen to show
         public override void Execute(object parameter)
         {
-            _navigationStore.CurrentViewModel = _createViewModel();
+            _navigationService.Navigate();
         }
     }
 }
